@@ -1,34 +1,33 @@
 package com.cinema.ticketsystem.booking.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.cinema.ticketsystem.booking.enums.SeatType;
+import com.cinema.ticketsystem.common.entity.BaseEntity;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "seats")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Seat {
+public class Seat extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    // Koltuğun bulunduğu salonun adı (Katalog modülündeki seanslarla eşleşmesi için)
     @Column(nullable = false)
     private String hallName;
 
-    @Column(name = "seat_row", nullable = false)
-    private String row;
+    // Koltuk sırası (Örn: "A", "B", "C")
+    @Column(nullable = false, length = 2)
+    private String rowLetter;
 
+    // Koltuk numarası (Örn: 1, 2, 3)
     @Column(nullable = false)
-    private Integer number;
+    private Integer seatNumber;
+
+    // Koltuğun tipi (Veritabanına "VIP" veya "STANDARD" olarak metin şeklinde yazılır)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private SeatType type = SeatType.STANDARD;
 }
