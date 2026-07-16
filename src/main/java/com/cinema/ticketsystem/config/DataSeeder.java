@@ -2,6 +2,7 @@ package com.cinema.ticketsystem.config;
 
 import com.cinema.ticketsystem.catalog.entity.Movie;
 import com.cinema.ticketsystem.catalog.entity.Session;
+import com.cinema.ticketsystem.catalog.entity.enums.Genre;
 import com.cinema.ticketsystem.catalog.repository.MovieRepository;
 import com.cinema.ticketsystem.catalog.repository.SessionRepository;
 import java.time.LocalDateTime;
@@ -25,23 +26,23 @@ public class DataSeeder implements CommandLineRunner {
         Movie inception = movieRepository.save(Movie.builder()
                 .title("Inception")
                 .duration(148)
-                .genre("Science Fiction")
+                .genre(Genre.SCIFI)
                 .build());
 
         Movie interstellar = movieRepository.save(Movie.builder()
                 .title("Interstellar")
                 .duration(169)
-                .genre("Adventure")
+                .genre(Genre.ADVENTURE)
                 .build());
 
         sessionRepository.save(Session.builder()
-                .movieId(inception.getId())
+                .movie(inception)
                 .hallName("Hall A")
                 .startTime(LocalDateTime.now().plusDays(1).withHour(19).withMinute(30).withSecond(0).withNano(0))
                 .build());
 
         sessionRepository.save(Session.builder()
-                .movieId(interstellar.getId())
+                .movie(interstellar)
                 .hallName("Hall B")
                 .startTime(LocalDateTime.now().plusDays(1).withHour(21).withMinute(0).withSecond(0).withNano(0))
                 .build());
