@@ -1,25 +1,27 @@
 package com.cinema.ticketsystem.catalog.controller;
 
-import com.cinema.ticketsystem.catalog.entity.Movie;
+import com.cinema.ticketsystem.catalog.api.MovieApi;
+import com.cinema.ticketsystem.catalog.dto.response.MovieResponse;
 import com.cinema.ticketsystem.catalog.service.MovieService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import com.cinema.ticketsystem.catalog.dto.request.MovieRequest;
-import com.cinema.ticketsystem.catalog.dto.response.MovieResponse;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/movies") // Uç noktamızın ana adresi
 @RequiredArgsConstructor
-public class MovieController {
+public class MovieController implements MovieApi {
 
     private final MovieService movieService;
 
-    @GetMapping
-    public List<Movie> getAllMovies() {
-        return movieService.getAllMovies();
+    @Override
+    public ResponseEntity<List<MovieResponse>> getAllMovies() {
+        return ResponseEntity.ok(movieService.getAllMovies());
     }
-}   
+
+    @Override
+    public ResponseEntity<MovieResponse> getMovieById(Long id) {
+        return ResponseEntity.ok(movieService.getMovieById(id));
+    }
+}

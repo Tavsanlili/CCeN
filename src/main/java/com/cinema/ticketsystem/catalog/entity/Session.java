@@ -7,16 +7,18 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "sessions")
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
+@ToString(exclude = "movie") // lazy proxy'nin toString'de tetiklenmesini engeller
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Session extends BaseEntity {
 
-
-    @Column(nullable = false)
-    private Long movieId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "movie_id", nullable = false)
+    private Movie movie;
 
     @Column(nullable = false, length = 50)
     private String hallName;

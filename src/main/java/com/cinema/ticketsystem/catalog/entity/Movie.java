@@ -1,6 +1,7 @@
 package com.cinema.ticketsystem.catalog.entity;
 
 import com.cinema.ticketsystem.common.entity.BaseEntity;
+import com.cinema.ticketsystem.catalog.entity.enums.Genre;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,8 +18,9 @@ public class Movie extends BaseEntity {
     private String title;
 
     @Column(nullable = false)
-    private Integer duration; // Dakika cinsinden süre
+    private Integer duration;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
-    private String genre;
+    private Genre genre;
 }
