@@ -1,13 +1,19 @@
 package com.cinema.ticketsystem.catalog.dto.response;
 
-import lombok.Builder;
-import lombok.Data;
+import com.cinema.ticketsystem.catalog.entity.Movie;
 
-@Data
-@Builder
-public class MovieResponse {
-    private Long id;
-    private String title;
-    private Integer duration;
-    private String genre;
+public record MovieResponse(
+        Long id,
+        String title,
+        Integer duration,
+        String genre
+) {
+    public static MovieResponse from(Movie movie) {
+        return new MovieResponse(
+                movie.getId(),
+                movie.getTitle(),
+                movie.getDuration(),
+                movie.getGenre().name()
+        );
+    }
 }
