@@ -1,9 +1,10 @@
 package com.cinema.ticketsystem.catalog.controller;
 
 import com.cinema.ticketsystem.catalog.api.MovieApi;
-import com.cinema.ticketsystem.catalog.dto.request.MovieRequest;
+ import com.cinema.ticketsystem.catalog.dto.request.MovieRequest;
 import com.cinema.ticketsystem.catalog.dto.response.MovieResponse;
 import com.cinema.ticketsystem.catalog.dto.response.SessionResponse;
+import com.cinema.ticketsystem.catalog.entity.enums.Genre;
 import com.cinema.ticketsystem.catalog.service.MovieService;
 import com.cinema.ticketsystem.catalog.service.SessionService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,11 @@ public class MovieController implements MovieApi {
     @Override
     public ResponseEntity<List<MovieResponse>> getAllMovies() {
         return ResponseEntity.ok(movieService.getAllMovies());
+    }
+
+    @Override
+    public ResponseEntity<List<MovieResponse>> searchMovies(String title, Genre genre) {
+        return ResponseEntity.ok(movieService.searchMovies(title, genre));
     }
 
     @Override
