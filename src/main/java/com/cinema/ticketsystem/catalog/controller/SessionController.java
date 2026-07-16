@@ -49,21 +49,4 @@ public class SessionController {
     public ResponseEntity<SessionResponse> getSessionById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(sessionService.getSessionById(id));
     }
-
-    @Operation(
-            summary = "Filme ait seansları getir",
-            description = "Verilen film ID'sine ait tüm seansları listeler."
-    )
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Başarılı"),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "Film bulunamadı",
-                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))
-            )
-    })
-    @GetMapping("/movie/{movieId}")
-    public ResponseEntity<List<SessionResponse>> getSessionsByMovieId(@PathVariable("movieId") Long movieId) {
-        return ResponseEntity.ok(sessionService.getSessionsByMovieId(movieId));
-    }
 }
