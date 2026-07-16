@@ -3,6 +3,7 @@ package com.cinema.ticketsystem.catalog.api;
 import com.cinema.ticketsystem.catalog.dto.request.MovieRequest;
 import com.cinema.ticketsystem.catalog.dto.response.MovieResponse;
 import com.cinema.ticketsystem.catalog.dto.response.SessionResponse;
+import com.cinema.ticketsystem.catalog.entity.enums.Genre;
 import com.cinema.ticketsystem.common.dto.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -42,6 +43,17 @@ public interface MovieApi {
     })
     @PostMapping
     ResponseEntity<MovieResponse> createMovie(@Valid @RequestBody MovieRequest request);
+
+    @Operation(
+            summary = "Film ara",
+            description = "Film adına ve/veya türüne göre arama yapar. İki parametre de opsiyoneldir."
+    )
+    @ApiResponse(responseCode = "200", description = "Başarılı")
+    @GetMapping("/search")
+    ResponseEntity<List<MovieResponse>> searchMovies(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) Genre genre
+    );
 
     @Operation(
             summary = "Filme ait seansları getir",

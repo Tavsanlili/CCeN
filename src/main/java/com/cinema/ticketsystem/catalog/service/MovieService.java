@@ -45,6 +45,12 @@ public class MovieService {
         return MovieResponse.from(saved);
     }
 
+    public List<MovieResponse> searchMovies(String title, Genre genre) {
+        return movieRepository.search(title, genre).stream()
+                .map(MovieResponse::from)
+                .toList();
+    }
+
     private Genre parseGenre(String genreValue) {
         try {
             return Genre.valueOf(genreValue.toUpperCase());
