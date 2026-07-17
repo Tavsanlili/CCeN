@@ -5,6 +5,8 @@ import com.cinema.ticketsystem.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "reservations")
 @Data
@@ -33,5 +35,5 @@ public class Reservation extends BaseEntity {
     
     // Bilet fiyatı (İndirimler veya farklı salonlar için fiyat değişebileceğinden o anki fiyatı buraya mühürleriz)
     @Column(nullable = false)
-    private Double ticketPrice;
+    private BigDecimal ticketPrice;
 }
