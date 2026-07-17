@@ -6,7 +6,13 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "seats")
+@Table(
+        name = "seats",
+        uniqueConstraints = @UniqueConstraint(
+                name = "uk_seat_hall_row_number",
+                columnNames = {"hall_name", "row_letter", "seat_number"}
+        )
+)
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -14,19 +20,15 @@ import lombok.*;
 @Builder
 public class Seat extends BaseEntity {
 
-    // Koltuğun bulunduğu salonun adı (Katalog modülündeki seanslarla eşleşmesi için)
     @Column(nullable = false)
     private String hallName;
 
-    // Koltuk sırası (Örn: "A", "B", "C")
     @Column(nullable = false, length = 2)
     private String rowLetter;
 
-    // Koltuk numarası (Örn: 1, 2, 3)
     @Column(nullable = false)
     private Integer seatNumber;
 
-    // Koltuğun tipi (Veritabanına "VIP" veya "STANDARD" olarak metin şeklinde yazılır)
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private SeatType type = SeatType.STANDARD;
